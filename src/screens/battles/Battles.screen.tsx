@@ -2,22 +2,22 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-web';
 
-const History =({navigation}) => {
+const BattlesScreen=({navigation}) => {
     return (  
         <View style={styles.container}>
-            <Text>History</Text>
+            <Text>Battles</Text>
           
         </View>
     );
 }
  
-export default History;
+export default BattlesScreen;
 
 const styles = StyleSheet.create({
     container:{
         flex:1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#49E1F2'
+        backgroundColor: '#49E1F2',
     },
 })

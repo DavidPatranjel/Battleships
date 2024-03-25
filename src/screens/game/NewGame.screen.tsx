@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-web';
 
-const Lobby =({navigation}) => {
+const NewGameScreen=({navigation}) => {
     return (  
         <View style={styles.container}>
-            <Text>Lobby</Text>
-          
+            <Text>New game</Text>
+             
         </View>
     );
 }
  
-export default Lobby;
+export default NewGameScreen;
 
 const styles = StyleSheet.create({
     container:{
@@ -19,5 +19,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#49E1F2'
-    },
+    }
 })

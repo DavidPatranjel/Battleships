@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-web';
 
-const Account=({navigation}) => {
+const UserInfoScreen=({navigation}) => {
     return (  
         <View style={styles.container}>
             <Text>Account</Text>
@@ -11,7 +11,7 @@ const Account=({navigation}) => {
     );
 }
  
-export default Account;
+export default UserInfoScreen;
 
 const styles = StyleSheet.create({
     container:{

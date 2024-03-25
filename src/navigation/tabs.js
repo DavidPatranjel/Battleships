@@ -1,10 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Battles from '../src/screens/Battles';
-import Account from '../src/screens/Account';
-import Lobby from '../src/screens/Lobby';
-import History from '../src/screens/History';
-import NewGame from '../src/screens/NewGame';
+import BattlesScreen from '../screens/battles/Battles.screen';
+import UserInfoScreen from '../screens/user/UserInfo.screen';
+import LobbyScreen from '../screens/lobby/Lobby.screen';
+import GameHistoryScreen from '../screens/game_history/GameHistory.screen';
+import NewGameScreen from '../screens/game/NewGame.screen';
 import { Image, Text, View, TouchableOpacity } from 'react-native';
 
 const Tab = createBottomTabNavigator();
@@ -48,11 +48,11 @@ const Tabs = () => {
         }}
       >
       
-        <Tab.Screen name='Lobby' component={Lobby} options={{
+        <Tab.Screen name='Lobby' component={LobbyScreen} options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
               <Image
-                source={require('../assets/icons/home.png')}
+                source={require('../../assets/icons/home.png')}
                 resizeMode='contain'
                 style={{
                   width: 25,
@@ -64,11 +64,11 @@ const Tabs = () => {
             </View>
           ),
         }} />
-        <Tab.Screen name='Battles' component={Battles} options={{
+        <Tab.Screen name='Battles' component={BattlesScreen} options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
               <Image
-                source={require('../assets/icons/console.png')}
+                source={require('../../assets/icons/cruise.png')}
                 resizeMode='contain'
                 style={{
                   width: 25,
@@ -81,12 +81,12 @@ const Tabs = () => {
           ),
         }} />
     
-    <Tab.Screen name='New Game' component={NewGame}
+    <Tab.Screen name='New Game' component={NewGameScreen}
           options={{
             tabBarIcon: ({ focused }) => (
               <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
                 <Image
-                  source={require('../assets/icons/plus.png')}
+                  source={require('../../assets/icons/plus.png')}
                   resizeMode='contain'
                   style={{
                     width: 30,
@@ -103,11 +103,11 @@ const Tabs = () => {
           }}
         />
         
-        <Tab.Screen name='History' component={History} options={{
+        <Tab.Screen name='History' component={GameHistoryScreen} options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
               <Image
-                source={require('../assets/icons/hourglass.png')}
+                source={require('../../assets/icons/hourglass.png')}
                 resizeMode='contain'
                 style={{
                   width: 25,
@@ -119,11 +119,11 @@ const Tabs = () => {
             </View>
           ),
         }} />
-        <Tab.Screen name='Account' component={Account} options={{
+        <Tab.Screen name='Account' component={UserInfoScreen} options={{
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
               <Image
-                source={require('../assets/icons/user.png')}
+                source={require('../../assets/icons/user.png')}
                 resizeMode='contain'
                 style={{
                   width: 25,

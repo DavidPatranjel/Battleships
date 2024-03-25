@@ -8,7 +8,7 @@ const Router: React.FC  = () => {
     const auth = useAuth();
     return (
         <NavigationContainer>
-            {auth.token ? authRoutes : gameRoutes}
+            {auth.token ? gameRoutes:authRoutes}
         </NavigationContainer>
     )
 }
