@@ -61,6 +61,8 @@ export const getGames = async (token:string) => {
     })
 
     const data = await result.json()
+    return data.games;
+}
 
 
 export const createGame = async (token:string) => {
@@ -104,19 +106,6 @@ export const getUserEmail = async (token:string) => {
     const data = await result.json()
    
     return data.user.email;
-};
-export const getUserId = async (token:string) => {
-    const result = await fetch(`${baseUrl}/user/details/me`, {
-        method: 'GET',
-        headers: {
-            ...baseHeaders,
-            'Authorization': `Bearer ${token}`
-        }
-    })
-
-    const data = await result.json()
-    console.log(data);
-    return data.user.id;
 };
 
 export const getNumbergames = async (token:string) => {

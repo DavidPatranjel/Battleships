@@ -1,17 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button } from 'react-native-web';
-import { Colours } from "../../styles/colours";
-
-
-const GameHistoryScreen = ({navigation}) => {
-    return (  
-        <View style={styles.container}>
-            <View style={styles.semiCircle}></View>
-            <View style={styles.whiteBackground}>
-                <Text>History</Text>
-            </View>
-        </View>
+import { StyleSheet } from 'react-native';
 import { useAuth } from "../../hooks/authContext";
 import { getGames, getUserId } from "../../api"
 import GameHistoryListItem from "../../components/GameHistoryListItem"
@@ -37,7 +25,6 @@ const GameListContainer = styled.View`
     flex-wrap: wrap;
     justify-content: space-between;
 `;
-
 
 
 const GameHistoryScreen =({navigation}) => {

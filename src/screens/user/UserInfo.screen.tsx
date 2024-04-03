@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     },
     usernameOnCircle: {
         color: 'white',
-        fontSize: 30,
+        fontSize: 40,
         fontWeight: 'bold',
     },
     completionCircle: {
@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 500,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 30
     },
     whiteBackground: {
         flex: 1,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { COLOURS } from "../styles/colours"; // asigurați-vă că calea către fișierul colours.txt este corectă
+import { Colours } from "../styles/colours"; // asigurați-vă că calea către fișierul colours.txt este corectă
 import { Image } from "react-native";
 
 const Container = styled.View`
@@ -14,18 +14,10 @@ const Container = styled.View`
     background-color: white; /* Schimbarea culorii de fundal la alb */
 `
 
-
-const ContentContainer = styled.View`
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    background-color: #FFFFFF; /* Modificare: Fundal transparent */
-`
-
 const Input = styled.TextInput`
     width: 100%;
     height: 40px;
-    border: 1px solid ${COLOURS.DARK_BLUE}; /* folosește culoarea DARK_BLUE din enum */
+    border: 1px solid ${Colours.DARK_BLUE}; /* folosește culoarea DARK_BLUE din enum */
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 10px;
@@ -34,7 +26,7 @@ const Input = styled.TextInput`
 const Button = styled.TouchableOpacity`
     width: 100%;
     height: 40px;
-    background-color: ${COLOURS.DARK_BLUE}; /* folosește culoarea DARK_BLUE din enum */
+    background-color: ${Colours.DARK_BLUE}; /* folosește culoarea DARK_BLUE din enum */
     border-radius: 5px;
     margin-bottom: 10px;
     display: flex;
