@@ -1,4 +1,4 @@
-export const enum COLOURS {
+export const enum Colours {
     PINK = '#EF41F2',
     DARK_BLUE = '#579AF2',
     BLUE = '#57B7F2',
@@ -11,5 +11,5 @@ export const enum COLOURS {
     WHITE = '#FFFFFF',
     BLACK = '#000000',
     BABY_BLUE = '#89CFF0',
-    INDIGO = '#4d5bbf'
+    INDIGO = '#4D5BBF'
 }

@@ -1,5 +1,4 @@
-const baseUrl = 'https://malamute-enabled-yak.ngrok-free.app';
-
+const baseUrl = process.env.EXPO_PUBLIC_API_URL
 const baseHeaders = {
     "Content-Type": 'application/json',
     "Accept": 'application/json'
@@ -38,22 +37,45 @@ export const register = async (email: string, password: string) => {
 };
 
 
-
-
-export const createGame = async (email: string, password: string) => {
-    const result = await fetch(`${baseUrl}/game`, {
-        method: 'POST',
+export const getUserId = async (token:string) => {
+    const result = await fetch(`${baseUrl}/user/details/me`, {
+        method: 'GET',
         headers: {
-            ...baseHeaders
-        },
-        body: JSON.stringify({
-            email, password
-        })
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
     })
 
     const data = await result.json()
 
-    return data.accessToken
+    return data.user.id;
+};
+
+export const getGames = async (token:string) => {
+    const result = await fetch(`${baseUrl}/game`, {
+        method: 'GET',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+
+
+export const createGame = async (token:string) => {
+    const result = await fetch(`${baseUrl}/game`, {
+        method: 'POST',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+    console.log(data);
+
+    return data
 };
 
 export const getGame = async (gameId:string) => {
@@ -69,21 +91,6 @@ export const getGame = async (gameId:string) => {
     return data.games
 };
 
-
-export const getGames = async (token:string) => {
-    console.log(token)
-    const result = await fetch('${baseUrl}/game', {
-        method: 'GET',
-        headers: {
-            ...baseHeaders,
-            'Authorization': 'Bearer ${token}'
-        }
-    })
-
-    const data = await result.json()
-
-    return data.games;
-};
 
 export const getUserEmail = async (token:string) => {
     const result = await fetch(`${baseUrl}/user/details/me`, {

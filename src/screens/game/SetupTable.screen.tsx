@@ -3,10 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Text, View, StyleSheet, StatusBar } from 'react-native'; // Modificare aici
-import Tabs from '../../navigation/tabs';
+import Tabs from '../../router/tabs';
 
 
 const Stack = createStackNavigator();
+
 
 function HomeScreen() {
   return (
@@ -20,7 +21,7 @@ function HomeScreen() {
 
 export default function SetupTable() {
   return (      
-      <Tabs/>
+      <></>
   );
 }
 
