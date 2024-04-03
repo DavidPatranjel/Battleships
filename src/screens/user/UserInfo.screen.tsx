@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-web';
+import { Colours } from '../../styles/colours'
 
 const UserInfoScreen=({navigation}) => {
     return (  
@@ -18,6 +19,6 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#49E1F2'
+        backgroundColor: Colours.BABY_BLUE
     },
 })
