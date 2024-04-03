@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
-import { Text } from "react-native";
+import { COLOURS } from "../styles/colours"; // asigurați-vă că calea către fișierul colours.txt este corectă
+import { Image } from "react-native";
 
 const Container = styled.View`
     width: 100%;
@@ -8,17 +9,43 @@ const Container = styled.View`
     display: flex;
     flex-direction: column;
     padding: 50px;
+    align-items: center;
+    justify-content: center;
+    background-color: white; /* Schimbarea culorii de fundal la alb */
+`
+
+
+const ContentContainer = styled.View`
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF; /* Modificare: Fundal transparent */
 `
 
 const Input = styled.TextInput`
     width: 100%;
-    height: 30px;
-    border: 1px solid;
+    height: 40px;
+    border: 1px solid ${COLOURS.DARK_BLUE}; /* folosește culoarea DARK_BLUE din enum */
+    border-radius: 5px;
     margin-bottom: 10px;
-    padding: 8px;
+    padding: 10px;
 `
 
 const Button = styled.TouchableOpacity`
+    width: 100%;
+    height: 40px;
+    background-color: ${COLOURS.DARK_BLUE}; /* folosește culoarea DARK_BLUE din enum */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const ButtonText = styled.Text`
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
 `
 
 export interface ILogin {
@@ -26,7 +53,7 @@ export interface ILogin {
     goToRegister: () => void;
 }
 
-const Login: React.FC<ILogin> = ({onSubmit, goToRegister}) => {
+const Login: React.FC<ILogin> = ({ onSubmit, goToRegister }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,13 +62,22 @@ const Login: React.FC<ILogin> = ({onSubmit, goToRegister}) => {
 
     return (
         <Container>
-            <Input keyboardType="email-address" onChangeText={setEmail}/>
-            <Input secureTextEntry onChangeText={setPassword}/>
+            <Image source={require('../../assets/boat.jpg')} style={{ width: '100%', height: undefined, aspectRatio: 16/9, marginBottom: 40, marginTop: -20 }} />
+            <Input
+                placeholder="Email"
+                keyboardType="email-address"
+                onChangeText={setEmail}
+            />
+            <Input
+                placeholder="Password"
+                secureTextEntry
+                onChangeText={setPassword}
+            />
             <Button onPress={handleSubmit}>
-                <Text>Submit</Text>
+                <ButtonText>Submit</ButtonText>
             </Button>
             <Button onPress={goToRegister}>
-                <Text>Register</Text>
+                <ButtonText>Register</ButtonText>
             </Button>
         </Container>
     )
