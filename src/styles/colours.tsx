@@ -7,8 +7,9 @@ export const enum Colours {
     GREEN = '#52BF04',
     PURPLE = '#6443D9',
     RED = '#F25D50',
-    YELLOW = '#F2A663',
+    YELLOW = '#F2A663',  
     WHITE = '#FFFFFF',
     BLACK = '#000000',
-    BABY_BLUE = '#89CFF0'
+    BABY_BLUE = '#89CFF0',
+    INDIGO = '#4D5BBF'
 }

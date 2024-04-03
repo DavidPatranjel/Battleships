@@ -5,7 +5,7 @@ const baseHeaders = {
 }
 
 export const login = async (email: string, password: string): Promise<string> => {
-    console.log(`${baseUrl}/auth/login`);
+    console.log(`${baseUrl}/auth/login`)
     const result = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: {
@@ -36,6 +36,7 @@ export const register = async (email: string, password: string) => {
     return data.accessToken
 };
 
+
 export const getUserId = async (token:string) => {
     const result = await fetch(`${baseUrl}/user/details/me`, {
         method: 'GET',
@@ -60,9 +61,6 @@ export const getGames = async (token:string) => {
     })
 
     const data = await result.json()
-
-    return data.games
-};
 
 
 export const createGame = async (token:string) => {
@@ -92,3 +90,88 @@ export const getGame = async (gameId:string) => {
 
     return data.games
 };
+
+
+export const getUserEmail = async (token:string) => {
+    const result = await fetch(`${baseUrl}/user/details/me`, {
+        method: 'GET',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+   
+    return data.user.email;
+};
+export const getUserId = async (token:string) => {
+    const result = await fetch(`${baseUrl}/user/details/me`, {
+        method: 'GET',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+    console.log(data);
+    return data.user.id;
+};
+
+export const getNumbergames = async (token:string) => {
+    const result = await fetch(`${baseUrl}/user/details/me`, {
+        method: 'GET',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+    console.log(data);
+    return data.currentlyGamesPlaying;
+};
+
+export const getNumberGamesLost = async (token:string) => {
+    const result = await fetch(`${baseUrl}/user/details/me`, {
+        method: 'GET',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+    console.log(data);
+    return data.gamesLost;
+};
+
+export const getNumberGamesWon = async (token:string) => {
+    const result = await fetch(`${baseUrl}/user/details/me`, {
+        method: 'GET',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+    console.log(data);
+    return data.gamesWon;
+};
+
+export const getNumberGamesPlayed = async (token:string) => {
+    const result = await fetch(`${baseUrl}/user/details/me`, {
+        method: 'GET',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+    console.log(data);
+    return data.gamesPlayed;
+};
+
