@@ -5,9 +5,6 @@ const baseHeaders = {
 }
 
 export const login = async (email: string, password: string): Promise<string> => {
-    console.log(`${baseUrl}/auth/login`)
-    console.log(email);
-    console.log(password);
     const result = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: {
@@ -19,7 +16,6 @@ export const login = async (email: string, password: string): Promise<string> =>
     })
 
     const data = await result.json()
-    console.log(result);
     return data.accessToken
 };
 

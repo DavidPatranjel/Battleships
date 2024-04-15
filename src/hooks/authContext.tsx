@@ -46,9 +46,7 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({chil
     const handleLogin = async (email: string, password: string) => {
         try {
             const result = await login(email, password);
-            console.log('login: ', result)
             setToken(result);
-            console.log("did it");
             await AsyncStorage.setItem('token', result);
         } catch (error) {
             console.log(error)
@@ -57,9 +55,7 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({chil
     const handleRegister = async (email: string, password: string) => {
         try {
             const result = await register(email, password);
-            console.log('register: ', result)
             setToken(result);
-            console.log("did it");
             await AsyncStorage.setItem("token", result);
         } catch (error) {
             console.log(error)
