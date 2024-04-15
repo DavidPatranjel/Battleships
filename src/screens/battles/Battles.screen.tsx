@@ -58,7 +58,6 @@ const BattlesScreen =({navigation}) => {
         }
     }
 
-
     return (  
         <Container>
             <GameList>

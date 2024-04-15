@@ -9,22 +9,12 @@ import Table from '../../components/Table';
 const SetupTableScreen = () => {
   const route = useRoute<any>();
   const gameCtx = useGameContext();
-  console.log("hereee");
-  console.log(gameCtx);
+
   useEffect(() => {
     gameCtx.loadGame(route.params.gameId);
   }, [])
   return (      
-    <SafeAreaView>
-      <Text>SetupTableScreen</Text>
-      <Table state = {[
-        [{id: 'A1', value: '', boat: 'N'}],
-        [],
-        [],
-        [],
-        [], 
-      ]}/>
-    </SafeAreaView>
+    <></>
   );
 }
 
