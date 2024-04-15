@@ -59,22 +59,23 @@ const WaitingText = styled.Text`
 `
 
 
-// const interface IGameListItem{
-//     id: number,
-//     onPress: () => void,
-//     status: string
+export interface IGameListItem{
+    username_player_lost: string,
+    username_current_player:string, 
+    username1: string, 
+    username2: string,
+    onPress: () => void
+}
 
-// }
-
-const GameHistoryListItem: React.FC<{username_player_won: string, username_current_player:string, username1: string, username2: string}> = 
-({username_player_won, username_current_player, username1, username2}) => {
+const GameHistoryListItem: React.FC<IGameListItem> = 
+({username_player_lost, username_current_player, username1, username2, onPress}) => {
     const [statusString, setStatusString] = useState("");
     const [statusColour, setStatusColour] = useState("");
     const [showedText, setShowedText] = useState("");
     const usernamePrefix1 = username1.split('@')[0];
     const usernamePrefix2 = username2.split('@')[0];                         
     useEffect(() => {
-        if(username_player_won == username_current_player){
+        if(username_player_lost != username_current_player){
             setStatusColour(Colours.GREEN);
             setStatusString("Won!");
         }
@@ -89,7 +90,7 @@ const GameHistoryListItem: React.FC<{username_player_won: string, username_curre
 
     return (
 
-        <Container colour = {statusColour}>
+        <Container colour = {statusColour} onPress={onPress}>
             <TopContainer>
                 <WaitingText>{statusString}</WaitingText>
             </TopContainer> 

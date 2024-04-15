@@ -1,27 +1,9 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-web';
-import { useAuth } from "../../hooks/authContext";
-import { createGame } from '../../api'
-
+import React, {useState} from 'react';
 const NewGameScreen=({navigation}) => {
-    const auth = useAuth();
 
-    return (  
-        <View >
-            <Text>New game</Text>
-             
-        </View>
+    return (
+        <></>
     );
-}
- 
-export default NewGameScreen;
+};
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#89CFF0'
-    }
-})
+export default NewGameScreen;

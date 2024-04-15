@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button } from 'react-native-web';
 import { useAuth } from "../../hooks/authContext";
-import { getGames, getUserId } from "../../api"
+import { getGames, getUserId, joinGame} from "../../api"
 import GameListItem from "../../components/GameListItem"
 import styled from 'styled-components/native';
 import { Colours } from '../../styles/colours'
-
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { GameStatus } from '../../components/gameStatus';
+import { GameRouteNames } from '../../router/route-names';
 
 const Container = styled.View`
     flex:1;
@@ -33,8 +33,12 @@ const LobbyScreen =({navigation}) => {
     const auth = useAuth();
     const [games, setGames] = useState<any[]>([]);
     const [userId, setUserId] = useState<string>('');
+    const isFocused = useIsFocused();
+    const navigator = useNavigation<any>();
+
 
     useEffect(() => {
+        if(isFocused){
         getGames(auth.token).then(setGames).catch(function(error) {
             console.log('There has been a problem fetching all games: ' + error.message);
               throw error;
@@ -43,7 +47,13 @@ const LobbyScreen =({navigation}) => {
             console.log('There has been a problem fetching user id: ' + error.message);
               throw error;
             });
-    },[])
+        }
+    },[isFocused])
+
+    const handleJoinGame = async (gameid) => {
+        await joinGame(auth.token, gameid);
+        await navigation.navigate(GameRouteNames.SETUP_TABLE, {gameId: gameid});
+    }
 
 
     return (  
@@ -52,7 +62,9 @@ const LobbyScreen =({navigation}) => {
                 <GameListContainer>
                     {games.filter(game => !game.player1.email.includes('string'))
                         .filter(game => game.player1.id != userId )
-                        .map(game => <GameListItem username = {game.player1.email} key = {game.id}/>)}
+                        .filter(game => game.status == GameStatus.CREATED)
+                        .map(game => <GameListItem username = {game.player1.email} key = {game.id} 
+                            onPress={() => handleJoinGame(game.id)}/>)}
                 </GameListContainer>
             </GameList>
         </Container>

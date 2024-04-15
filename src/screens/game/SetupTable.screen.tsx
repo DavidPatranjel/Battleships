@@ -1,29 +1,38 @@
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, StyleSheet, StatusBar } from 'react-native'; // Modificare aici
-import Tabs from '../../router/tabs';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { GameContext, useGameContext } from '../../hooks/gameContext';
+import Table from '../../components/Table';
 
-
-const Stack = createStackNavigator();
-
-
-function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <StatusBar />
-    </View>
-  );
-}
-
-
-export default function SetupTable() {
+const SetupTableScreen = () => {
+  const route = useRoute<any>();
+  const gameCtx = useGameContext();
+  console.log("hereee");
+  console.log(gameCtx);
+  useEffect(() => {
+    gameCtx.loadGame(route.params.gameId);
+  }, [])
   return (      
-      <></>
+    <SafeAreaView>
+      <Text>SetupTableScreen</Text>
+      <Table state = {[
+        [{id: 'A1', value: '', boat: 'N'}],
+        [],
+        [],
+        [],
+        [], 
+      ]}/>
+    </SafeAreaView>
   );
 }
+
+export default () => (
+  <GameContext>
+    <SetupTableScreen />
+  </GameContext>
+ );
 
 const styles = StyleSheet.create({
   container: {

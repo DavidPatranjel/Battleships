@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { login, register } from "../api";
+import { login, register, getUserId } from "../api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface IAuthContext {
@@ -23,13 +23,24 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({chil
 
     useEffect(() => {
         setIsLoading(true)
-        AsyncStorage.getItem('token')
-        .then(value => {
-            if(value !== null){
-                setToken(value);
+        const fetchData = async () => {
+            try {
+                const value = await AsyncStorage.getItem('token');
+                if (value !== null) {
+                    const result = await getUserId(value); //if bad token
+                    setToken(value);
+                } else {
+                    console.log("error null token");
+                }
+            } catch (error) {
+                setToken('');
+                console.log("Error fetching data:", error);
+            } finally {
+                setIsLoading(false);
             }
-        })
-        .finally(() => {setIsLoading(false)})
+        };
+
+        fetchData();
     },[])
 
     const handleLogin = async (email: string, password: string) => {
