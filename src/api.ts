@@ -6,6 +6,8 @@ const baseHeaders = {
 
 export const login = async (email: string, password: string): Promise<string> => {
     console.log(`${baseUrl}/auth/login`)
+    console.log(email);
+    console.log(password);
     const result = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: {
@@ -17,6 +19,7 @@ export const login = async (email: string, password: string): Promise<string> =>
     })
 
     const data = await result.json()
+    console.log(result);
     return data.accessToken
 };
 
@@ -47,7 +50,6 @@ export const getUserId = async (token:string) => {
     })
 
     const data = await result.json()
-
     return data.user.id;
 };
 
@@ -75,22 +77,35 @@ export const createGame = async (token:string) => {
     })
 
     const data = await result.json()
-    console.log(data);
 
     return data
 };
 
-export const getGame = async (gameId:string) => {
-    const result = await fetch(`${baseUrl}/game/${gameId}`, {
-        method: 'GET',
+export const joinGame = async (token:string, gameid:string) => {
+    const result = await fetch(`${baseUrl}/game/join/${gameid}`, {
+        method: 'POST',
         headers: {
-            ...baseHeaders
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
         }
     })
 
     const data = await result.json()
 
-    return data.games
+    return data
+};
+
+export const getGame = async (token:string, gameId:string) => {
+    const result = await fetch(`${baseUrl}/game/${gameId}`, {
+        method: 'GET',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await result.json()
+    return data
 };
 
 
@@ -118,7 +133,6 @@ export const getNumbergames = async (token:string) => {
     })
 
     const data = await result.json()
-    console.log(data);
     return data.currentlyGamesPlaying;
 };
 
@@ -132,7 +146,6 @@ export const getNumberGamesLost = async (token:string) => {
     })
 
     const data = await result.json()
-    console.log(data);
     return data.gamesLost;
 };
 
@@ -146,7 +159,6 @@ export const getNumberGamesWon = async (token:string) => {
     })
 
     const data = await result.json()
-    console.log(data);
     return data.gamesWon;
 };
 
@@ -160,7 +172,6 @@ export const getNumberGamesPlayed = async (token:string) => {
     })
 
     const data = await result.json()
-    console.log(data);
     return data.gamesPlayed;
 };
 

@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import authRoutes from "./auth.router";
 import gameRoutes from "./game.router";
 import { useAuth } from "../hooks/authContext";
-import { Text, ActivityIndicator } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { Colours } from "../styles/colours"
 
 const Router: React.FC  = () => {
