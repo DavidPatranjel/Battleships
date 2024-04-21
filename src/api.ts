@@ -77,19 +77,7 @@ export const createGame = async (token:string) => {
     return data
 };
 
-export const joinGame = async (token:string, gameid:string) => {
-    const result = await fetch(`${baseUrl}/game/join/${gameid}`, {
-        method: 'POST',
-        headers: {
-            ...baseHeaders,
-            'Authorization': `Bearer ${token}`
-        }
-    })
 
-    const data = await result.json()
-
-    return data
-};
 
 export const getGame = async (token:string, gameId:string) => {
     const result = await fetch(`${baseUrl}/game/${gameId}`, {
@@ -171,3 +159,19 @@ export const getNumberGamesPlayed = async (token:string) => {
     return data.gamesPlayed;
 };
 
+export const sendMapConfiguration = async (gameId: string, token: string, ships: any[]) => {
+    const result = await fetch(`${baseUrl}/game/${gameId}`, {
+        method: 'PATCH',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            ships
+        })
+    });
+
+    const data = await result.json();
+    console.log(data);
+    return data;
+};
