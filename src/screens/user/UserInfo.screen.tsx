@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useAuth } from "../../hooks/authContext";
 import styled from 'styled-components/native';
 import { getUserEmail, getNumbergames, getNumberGamesLost, getNumberGamesPlayed, getNumberGamesWon } from '../../api';
-import { Button } from 'react-native-web';
 import { Colours } from '../../styles/colours'
 
 const UserInfoScreen = () => {
@@ -66,6 +65,9 @@ const winPercentage = totalGamesPlayed > 0 ? (numberOfGamesWon / totalGamesPlaye
 
     return (
         <View style={styles.container}>
+            <TouchableOpacity onPress={() => auth.setToken('')} style={styles.button}>
+                    <Text style={styles.buttonText}>X</Text>
+                </TouchableOpacity>
             <View style={styles.semiCircle}>
                 <View style={styles.usernameContainer}>
                     <Text style={styles.usernameOnCircle}>{username.split('@')[0]}</Text>
@@ -74,6 +76,7 @@ const winPercentage = totalGamesPlayed > 0 ? (numberOfGamesWon / totalGamesPlaye
                 <Text style={styles.completionText}>{winPercentage.toFixed(2)}%</Text>
 
                 </View>
+                
             </View>
             <View style={styles.whiteBackground}>
                 <View style={[styles.tilesContainer, {marginTop: 30}]}>
@@ -174,6 +177,22 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'transparent',
         alignItems: 'center',
+    },
+    button: {
+        position: 'absolute',
+        top: 10, // Adjust this value as needed
+        left: 10, // Adjust this value as needed
+        width: 40,
+        height: 40,
+        backgroundColor: Colours.RED,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1, // Ensure the button is above other elements
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20,
     },
 });
 

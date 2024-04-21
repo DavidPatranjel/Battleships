@@ -58,6 +58,7 @@ const Register: React.FC<ILogin> = ({ onSubmit }) => {
     const [password, setPassword] = useState('');
 
     const handleSubmit = () => {
+        console.log(email, password);
         onSubmit(email, password);
     }
 

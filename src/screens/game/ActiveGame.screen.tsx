@@ -8,7 +8,6 @@ import { Colours } from '../../styles/colours';
 import { ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GameContext, IHit, useActiveGameContext } from '../../hooks/activeGameContext';
-import { Image } from 'react-native';
 
 const BoatImage = styled.Image<{ isPlayerToMove: boolean }>`
   width: 20px;
