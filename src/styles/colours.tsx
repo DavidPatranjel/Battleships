@@ -11,5 +11,6 @@ export const enum Colours {
     WHITE = '#FFFFFF',
     BLACK = '#000000',
     BABY_BLUE = '#89CFF0',
-    INDIGO = '#4D5BBF'
+    INDIGO = '#4D5BBF', 
+    GRAY = '#808080'
 }
