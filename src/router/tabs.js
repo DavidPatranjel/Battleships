@@ -1,34 +1,81 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import BattlesScreen from '../screens/battles/Battles.screen';
 import UserInfoScreen from '../screens/user/UserInfo.screen';
 import LobbyScreen from '../screens/lobby/Lobby.screen';
-import GameHistoryScreen from '../screens/game_history/GameHistory.screen';
 import NewGameScreen from '../screens/game/NewGame.screen';
-import { Image, Text, View, TouchableOpacity } from 'react-native';
+import GameHistoryScreen from '../screens/game_history/GameHistory.screen';
+import { Alert, Modal, StyleSheet, Text, Pressable, View, Image, TouchableOpacity } from 'react-native';
 import { Colours } from '../styles/colours'
+import { createGame} from '../api'
+import { useAuth } from "../hooks/authContext";
+
 
 const Tab = createBottomTabNavigator();
 
-const CustomTabBarButton = ({ children, onPress, token}) => (
-  <TouchableOpacity
-    style={{
-      top: -30,
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}
-    onPress={onPress}
-  >
-    <View style={{
-      width: 70,
-      height: 70,
-      borderRadius: 35,
-      backgroundColor: Colours.DARK_BLUE,
-    }}>
-      {children}
+const CustomTabBarButton = ({ children }) => {
+  const auth = useAuth();
+  const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const handleCreateGame = async () => {
+    await createGame(auth.token);
+  }
+
+  const reloadPage = () => {
+    // ceva aici help
+  };
+
+  return (
+    <View>
+      <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+                <Text style={styles.modalTextA}>You have created</Text>
+                <Text style={styles.modalTextB}>a new game!</Text>
+                <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => 
+                {
+                  handleCreateGame();
+                  setModalVisible(!modalVisible);
+                  reloadPage();
+                }}>
+                <Text style={styles.textStyle}>Close</Text>
+                </Pressable>
+            </View>
+            </View>
+        </Modal>
+      <TouchableOpacity
+        style={{
+          top: -30,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={() => setModalVisible(true)}
+      >
+        <View
+          style={{
+            width: 70,
+            height: 70,
+            borderRadius: 35,
+            backgroundColor: Colours.DARK_BLUE,
+          }}
+        >
+          {children}
+        </View>
+      </TouchableOpacity>
     </View>
-  </TouchableOpacity>
-)
+  );
+};
 
 const Tabs = () => {
 
@@ -164,5 +211,53 @@ const Tabs = () => {
       </Tab.Navigator>
   );
 }
+
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonClose: {
+    backgroundColor: Colours.DARK_BLUE,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalTextB: {
+    fontSize: 17,
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  modalTextA: {
+    fontSize: 17,
+    textAlign: 'center',
+  },
+});
+ 
 
 export default Tabs;

@@ -8,9 +8,9 @@ interface ITable {
     state: ICell[][];
 }
 
-const Cell = styled.View<{ boat: boolean }>`
-    width: 21.5px;
-    height: 21.5px;
+const Cell = styled.TouchableOpacity<{ boat: boolean }>`
+    width: 26px;
+    height: 26px;
     border: 1px solid;
     margin: 1px;
     display: flex;
@@ -49,7 +49,7 @@ const BoatMove = styled.Text<{ hit: boolean }>`
 `;
 
 
-const Table: React.FC<ITable & { moves: IHit[], player: number }>  = ({state, moves, player}) => {
+const TableActive: React.FC<ITable & { moves: IHit[], player: number }>  = ({state, moves, player}) => {
     return (
         <>
         <Row>
@@ -63,10 +63,12 @@ const Table: React.FC<ITable & { moves: IHit[], player: number }>  = ({state, mo
                 <Row key={rowIndex}>
                     <LabelCell><LabelText>{String.fromCharCode(65 + rowIndex)}</LabelText></LabelCell>
                     {line.map(({ id, boat }) => {
-                        const isMove = moves.some(move => move.id === id && move.player === player);
+                        const move = moves.find(move => move.id === id && move.player === player);
+                        const isHit = move && move.hit; // Check if move exists and if it's a hit
+
                         return (
-                            <Cell key={id} boat={boat}>
-                                <BoatMove hit={boat}>{isMove ? 'X' : ''}</BoatMove>
+                            <Cell key={id} boat={isHit}>
+                                <BoatMove hit={isHit}>{move ? 'X' : ''}</BoatMove>
                             </Cell>
                         );
                     })}
@@ -88,4 +90,4 @@ const Table: React.FC<ITable & { moves: IHit[], player: number }>  = ({state, mo
                 </Row>
             ))}*/
 
-export default Table;
+export default TableActive;

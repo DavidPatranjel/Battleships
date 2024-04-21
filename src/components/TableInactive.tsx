@@ -9,8 +9,8 @@ interface ITable {
 }
 
 const Cell = styled.View<{ boat: boolean }>`
-    width: 21.5px;
-    height: 21.5px;
+    width: 26px;
+    height: 26px;
     border: 1px solid;
     margin: 1px;
     display: flex;
@@ -49,7 +49,7 @@ const BoatMove = styled.Text<{ hit: boolean }>`
 `;
 
 
-const Table: React.FC<ITable & { moves: IHit[], player: number }>  = ({state, moves, player}) => {
+const TableInactive: React.FC<ITable & { moves: IHit[], player: number }>  = ({state, moves, player}) => {
     return (
         <>
         <Row>
@@ -76,16 +76,4 @@ const Table: React.FC<ITable & { moves: IHit[], player: number }>  = ({state, mo
     )
 }
 
-/*
-            {state.map((line, rowIndex) => (
-                <Row key={rowIndex}>
-                    <LabelCell><LabelText>{rowIndex + 1}</LabelText></LabelCell>
-                    {line.map(({ id, value }) => (
-                        <Cell key={id}>
-                            <Text>{value}</Text>
-                        </Cell>
-                    ))}
-                </Row>
-            ))}*/
-
-export default Table;
+export default TableInactive;

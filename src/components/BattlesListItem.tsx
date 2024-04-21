@@ -4,7 +4,18 @@ import { Text } from "react-native";
 import { Colours } from '../styles/colours';
 import { GameStatus } from './gameStatus';
 
-const Container = styled.TouchableOpacity<{colour: string}>`
+const ContainerButton = styled.TouchableOpacity<{colour: string}>`
+    border: 1px solid ${Colours.YELLOW};
+    border-radius: 25px;
+    background-color: ${props => props.colour};
+    justify-content: center;
+    align-items: center;
+    width: 48%; 
+    margin-bottom: 10px; 
+    display: flex;
+`;
+
+const ContainerView = styled.View<{colour: string}>`
     border: 1px solid ${Colours.YELLOW};
     border-radius: 25px;
     background-color: ${props => props.colour};
@@ -60,14 +71,14 @@ const WaitingText = styled.Text`
 `
 
 
-// const interface IGameListItem{
-//     id: number,
-//     onPress: () => void,
-//     status: string
+export interface IGameListItem{
+    game_state: string,
+    username1: string, 
+    username2: string,
+    onPress: () => void,
+}
 
-// }
-
-const BattlesListItem: React.FC<{game_state: string, username1: string, username2: string}> = ({game_state, username1, username2}) => {
+const BattlesListItem: React.FC<IGameListItem> = ({game_state, username1, username2, onPress}) => {
     const [statusString, setStatusString] = useState("");
     const [statusColour, setStatusColour] = useState("");
     const [showedText, setShowedText] = useState("");
@@ -100,15 +111,28 @@ const BattlesListItem: React.FC<{game_state: string, username1: string, username
                                         
    
     return (
-
-        <Container colour = {statusColour}>
-            <TopContainer>
-                <WaitingText>{statusString}</WaitingText>
-            </TopContainer> 
-            <BottomContainer colour = {statusColour}>
-                <TextStyled>{showedText}</TextStyled>
-            </BottomContainer>
-        </Container>
+        <>
+            {game_state === GameStatus.CREATED ? (
+                <ContainerView colour = {statusColour}>
+                    <TopContainer>
+                        <WaitingText>{statusString}</WaitingText>
+                    </TopContainer> 
+                    <BottomContainer colour = {statusColour}>
+                        <TextStyled>{showedText}</TextStyled>
+                    </BottomContainer>
+                </ContainerView>
+            ) :
+            (
+                <ContainerButton colour = {statusColour} onPress={onPress}>
+                    <TopContainer>
+                        <WaitingText>{statusString}</WaitingText>
+                    </TopContainer> 
+                    <BottomContainer colour = {statusColour}>
+                        <TextStyled>{showedText}</TextStyled>
+                    </BottomContainer>
+                </ContainerButton>
+            )}
+        </>
     )
 }
 

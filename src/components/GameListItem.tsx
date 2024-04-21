@@ -57,19 +57,17 @@ const WaitingText = styled.Text`
     justify-content: center; 
 `
 
-// const interface IGameListItem{
-//     id: number,
-//     onPress: () => void,
-//     status: string
+export interface IGameListItem{
+    username: string,
+    onPress: () => void,
+}
 
-// }
-
-const GameListItem: React.FC<{username: string}> = ({username}) => {
+const GameListItem: React.FC<IGameListItem> = ({username, onPress}) => {
     const status = "Waiting..."; 
     const usernamePrefix = username.split('@')[0];
 
     return (
-        <Container>
+        <Container onPress={onPress}>
             <TopContainer>
                 <WaitingText>{status}</WaitingText>
             </TopContainer>

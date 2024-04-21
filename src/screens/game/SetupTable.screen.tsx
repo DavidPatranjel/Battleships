@@ -1,29 +1,28 @@
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, StyleSheet, StatusBar } from 'react-native'; // Modificare aici
-import Tabs from '../../router/tabs';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { GameContext, useGameContext } from '../../hooks/gameContext';
+import Table from '../../components/Table';
 
+const SetupTableScreen = () => {
+  const route = useRoute<any>();
+  const gameCtx = useGameContext();
 
-const Stack = createStackNavigator();
-
-
-function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <StatusBar />
-    </View>
-  );
-}
-
-
-export default function SetupTable() {
+  useEffect(() => {
+    gameCtx.loadGame(route.params.gameId);
+  }, [])
   return (      
-      <></>
+    <></>
   );
 }
+
+export default () => (
+  <GameContext>
+    <SetupTableScreen />
+  </GameContext>
+ );
 
 const styles = StyleSheet.create({
   container: {

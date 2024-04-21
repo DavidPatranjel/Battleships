@@ -30,12 +30,13 @@
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-web": "~0.19.6",
+    "rn-popup": "^1.0.4",
     "styled-components": "^6.1.8",
     "typescript": "^5.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@types/node": "^20.12.4"
+    "@types/node": "^20.12.5"
   },
   "private": true
 }
