@@ -8,5 +8,6 @@ export const enum GameRouteNames {
     SETUP_TABLE = 'SETUP_TABLE',
     ACTIVE_GAME = 'ACTIVE_GAME',
     HISTORY = 'HISTORY', 
-    END_GAME = "END_GAME" 
+    END_GAME = "END_GAME",
+    LOBBY = "LOBBY"
 }

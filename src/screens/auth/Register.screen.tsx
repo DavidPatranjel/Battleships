@@ -1,5 +1,6 @@
 import Register from "../../components/Register"
 import { useAuth } from "../../hooks/authContext"
+import React from "react"
 
 
 const RegisterScreen = () => {
