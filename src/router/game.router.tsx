@@ -5,6 +5,7 @@ import Menu from '../screens/menu/Menu.screen';
 import SetupTableScreen from '../screens/game/SetupTable.screen';
 import ActiveGameScreen from '../screens/game/ActiveGame.screen';
 import GameReplayScreen from '../screens/game_history/GameReplay.screen';
+import EndGameScreen from '../screens/game/EndGame.screen';
 
 const GameStack = createNativeStackNavigator()
 
@@ -21,6 +22,9 @@ const authRoutes = (
         }}/>
         <GameStack.Screen name={GameRouteNames.HISTORY} component={GameReplayScreen} options={{
             headerTitle: (props) => <Text {...props}>Game History</Text>
+        }}/>
+        <GameStack.Screen name={GameRouteNames.END_GAME} component={EndGameScreen} options={{
+            headerShown: false
         }}/>
     </GameStack.Navigator>
 )

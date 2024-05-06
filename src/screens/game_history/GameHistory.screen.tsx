@@ -7,7 +7,6 @@ import { Colours } from '../../styles/colours'
 import { GameStatus } from '../../components/gameStatus';
 import { useIsFocused } from '@react-navigation/native'
 import { GameRouteNames } from '../../router/route-names';
-import { View, Text, TouchableOpacity } from 'react-native';
 
 const Container = styled.View`
     flex:1;
@@ -61,6 +60,8 @@ const GameHistoryScreen =({navigation}) => {
             <GameList>
                 <GameListContainer>
                     {games.filter(game => game.status == GameStatus.FINISHED)
+                    .filter(game => game.player1.id == userId || 
+                        (game.player2 != null && game.player2.id == userId))
                     .map(game => <GameHistoryListItem username_player_lost = {game.playerToMoveId} 
                         username_current_player = {userId}
                         username1 = {game.player1.email}
