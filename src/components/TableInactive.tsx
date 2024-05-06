@@ -27,8 +27,8 @@ const Row = styled.View`
 `
 
 const LabelCell = styled.View`
-    width: 21.5px;
-    height: 21.5px;
+    width: 26px;
+    height: 26px;
     border: 1px solid;
     margin: 1px;
     display: flex;

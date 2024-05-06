@@ -8,6 +8,9 @@ import { Colours } from '../../styles/colours';
 import { ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GameContext, IHit, useActiveGameContext } from '../../hooks/activeGameContext';
+import { useAuth } from '../../hooks/authContext';
+import { GameRouteNames } from '../../router/route-names';
+import { GameStatus } from '../../components/gameStatus';
 
 const BoatImage = styled.Image<{ isPlayerToMove: boolean }>`
   width: 20px;
@@ -52,11 +55,16 @@ const UserContainer = styled.View`
   align-items: center;
 `;
 
-const ActiveGameScreen = () => {
+const ActiveGameScreen = ({navigation}) => {
   const route = useRoute<any>();
   const gameCtx = useActiveGameContext();
+  const auth = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleEndGame = async (status) => {
+    navigation.navigate(GameRouteNames.END_GAME, {finalGameStatus: status});
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +93,14 @@ const ActiveGameScreen = () => {
     )
   }
 
+  if(gameCtx.game != null && gameCtx.game.status == GameStatus.FINISHED)
+  {
+    if(gameCtx.userId == gameCtx.game.playerToMoveId)
+      handleEndGame(0);
+    else handleEndGame(1);
+  }
+
+
   if(gameCtx.userId == gameCtx.game.player1Id)
   {
     return (      
@@ -101,8 +117,14 @@ const ActiveGameScreen = () => {
           <UserText>{gameCtx.game.player2.email.split("@")[0]}</UserText>
           <BoatImage source={require('../../../assets/icons/cruise.png')}  
                     isPlayerToMove={gameCtx.game.playerToMoveId == gameCtx.game.player2Id}/>
-        </UserContainer>        <TableContainer>
-          <TableActive state={gameCtx.tableState2} moves={gameCtx.moves} player={1}/>
+        </UserContainer>        
+        <TableContainer>
+          <TableActive state={gameCtx.tableState2} 
+                          moves={gameCtx.moves} 
+                          player={1} 
+                          token={auth.token} 
+                          gameId={gameCtx.game.id}
+                          playerTurn={gameCtx.game.playerToMoveId == gameCtx.userId}/>        
         </TableContainer>
       </Container>
     );
@@ -117,7 +139,13 @@ const ActiveGameScreen = () => {
                     isPlayerToMove={gameCtx.game.playerToMoveId == gameCtx.game.player1Id}/>
         </UserContainer>
         <TableContainer>
-          <TableActive state={gameCtx.tableState1} moves={gameCtx.moves} player={2} />
+          <TableActive state={gameCtx.tableState1} 
+                        moves={gameCtx.moves} 
+                        player={2} 
+                        token={auth.token} 
+                        gameId={gameCtx.game.id}
+                        playerTurn={gameCtx.game.playerToMoveId == gameCtx.userId}
+                        />
         </TableContainer>
         <UserContainer>
           <UserText>{gameCtx.game.player2.email.split("@")[0]}</UserText>
@@ -133,8 +161,8 @@ const ActiveGameScreen = () => {
 }
 
 
-export default () => (
+export default ({ navigation }) => (
   <GameContext>
-    <ActiveGameScreen />
+    <ActiveGameScreen navigation={navigation}/>
   </GameContext>
  );

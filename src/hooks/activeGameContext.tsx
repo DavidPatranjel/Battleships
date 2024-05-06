@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect} from "react";
+import { createContext, useContext, useState, useEffect, useRef} from "react";
 import { GameStatus } from "../components/gameStatus";
 import { getGame, getUserId } from "../api"
 import { useAuth } from "./authContext";
@@ -112,7 +112,7 @@ export const GameContext: React.FC<{children: React.ReactNode}> = ({children}) =
     const [moves, setMoves] = useState<IHit[]>([]);
     const [userId, setUserId] = useState<any>('');
     const auth = useAuth();
-
+    const loopRef = useRef<NodeJS.Timeout>();
     const initGameToTabelState1 = () => {
         return baseTableState1;
     }
@@ -162,20 +162,33 @@ export const GameContext: React.FC<{children: React.ReactNode}> = ({children}) =
 
     useEffect(() => {
         
-        if(game != null)
-        {
+        const fetchUserId = async () => {
+            const id = await getUserId(auth.token);
+            setUserId(id);
+        };
+    
+        if (game != null) {
             setTableState1(gameToTabelState1(game.player1Id));
             setTableState2(gameToTabelState2(game.player2Id));
             setMoves(gameToMoves(game.player1Id));
-            setUserId(getUserId(auth.token));
-        }
-        else 
-        {
+            fetchUserId(); 
+        } else {
             setTableState1(initGameToTabelState1());
             setTableState2(initGameToTabelState2());
         }
         
     }, [game]);
+
+    useEffect(() => {
+        loopRef.current = setInterval(() => {
+            if(game) {
+                handleLoadGame(game.id);
+            }
+        }, 1000);
+        return () => {
+            clearInterval(loopRef.current)
+        }
+    }, [game])
 
     return (<Context.Provider value={{loadGame: handleLoadGame, game, tableState1, tableState2, moves, userId}}>
     {children}

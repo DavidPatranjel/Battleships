@@ -20,7 +20,6 @@ export const login = async (email: string, password: string): Promise<string> =>
 };
 
 export const register = async (email: string, password: string) => {
-    console.log(email, password);
     const result = await fetch(`${baseUrl}/auth/register`, {
         method: 'POST',
         headers: {
@@ -47,6 +46,7 @@ export const getUserId = async (token:string) => {
     })
 
     const data = await result.json()
+   
     return data.user.id;
 };
 
@@ -188,5 +188,23 @@ export const joinGame = async (token:string, gameid:string) => {
 
     const data = await result.json()
 
+    return data
+};
+
+export const strikeInGame = async (token:string, gameid:string, x: string, y: number) => {
+    console.log(gameid, x, y);
+    const result = await fetch(`${baseUrl}/game/strike/${gameid}`, {
+        method: 'POST',
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
+    })
+
+    const data = await result.json()
     return data
 };
